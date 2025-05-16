@@ -18,9 +18,9 @@ public class BusesService {
         return busesRepository.findByBusId(busId);
     }
 
-    // Obtener buses por fencesId
-    public List<Buses> getBusesByFencesId(Long fencesId) {
-        return busesRepository.findByFencesId(fencesId);
+    // Obtener buses por fence
+    public List<Buses> getBusesByFenceId(Long fenceId) {
+        return busesRepository.findByFenceFenceId(fenceId);
     }
 
     // Obtener todos los buses

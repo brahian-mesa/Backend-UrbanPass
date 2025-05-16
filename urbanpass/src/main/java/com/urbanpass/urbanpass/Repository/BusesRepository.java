@@ -13,6 +13,6 @@ public interface BusesRepository extends CrudRepository<Buses, Long> {
     // Buscar buses por busId
     public abstract List<Buses> findByBusId(Long busId);
 
-    // Buscar buses por fencesId (ajustado para coincidir con el campo de la clase)
-    public abstract List<Buses> findByFencesId(Long fencesId);
+    // Buscar buses por fence
+    public abstract List<Buses> findByFenceFenceId(Long fenceId);
 }

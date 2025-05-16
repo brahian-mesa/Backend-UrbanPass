@@ -33,12 +33,12 @@ public class BusesControl {
         return new ResponseEntity<>(buses, HttpStatus.OK);
     }
 
-    // Endpoint para obtener buses por fencesId
-    @GetMapping(path = "/fence/{fencesId}")
-    public ResponseEntity<List<Buses>> obtenerBusesPorFence(@PathVariable("fencesId") Long fencesId) {
-        List<Buses> buses = busesService.getBusesByFencesId(fencesId);
+    // Endpoint para obtener buses por fence
+    @GetMapping(path = "/fence/{fenceId}")
+    public ResponseEntity<List<Buses>> obtenerBusesPorFence(@PathVariable("fenceId") Long fenceId) {
+        List<Buses> buses = busesService.getBusesByFenceId(fenceId);
         if (buses.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Retornar 404 si no se encuentran buses
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(buses, HttpStatus.OK);
     }

@@ -1,14 +1,8 @@
 package com.urbanpass.urbanpass.Models;
 
 import java.util.List;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.ElementCollection;
+import java.util.Set;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "routes")
@@ -30,6 +24,18 @@ public class Routes {
 
     @ElementCollection
     private List<String> waypoints;
+
+    @ManyToMany
+    @JoinTable(name = "route_bus", joinColumns = @JoinColumn(name = "route_id"), inverseJoinColumns = @JoinColumn(name = "bus_id"))
+    private Set<Buses> buses;
+
+    @ManyToMany
+    @JoinTable(name = "route_neighborhood", joinColumns = @JoinColumn(name = "route_id"), inverseJoinColumns = @JoinColumn(name = "neighborhood_id"))
+    private Set<Neighborhoods> neighborhoods;
+
+    @ManyToMany
+    @JoinTable(name = "route_stop", joinColumns = @JoinColumn(name = "route_id"), inverseJoinColumns = @JoinColumn(name = "stop_id"))
+    private Set<Stops> stops;
 
     // Getters and Setters
     public Long getRouteId() {
@@ -70,5 +76,29 @@ public class Routes {
 
     public void setWaypoints(List<String> waypoints) {
         this.waypoints = waypoints;
+    }
+
+    public Set<Buses> getBuses() {
+        return buses;
+    }
+
+    public void setBuses(Set<Buses> buses) {
+        this.buses = buses;
+    }
+
+    public Set<Neighborhoods> getNeighborhoods() {
+        return neighborhoods;
+    }
+
+    public void setNeighborhoods(Set<Neighborhoods> neighborhoods) {
+        this.neighborhoods = neighborhoods;
+    }
+
+    public Set<Stops> getStops() {
+        return stops;
+    }
+
+    public void setStops(Set<Stops> stops) {
+        this.stops = stops;
     }
 }
