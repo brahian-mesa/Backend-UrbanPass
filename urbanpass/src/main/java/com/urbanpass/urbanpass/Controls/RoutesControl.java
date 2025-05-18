@@ -25,9 +25,15 @@ public class RoutesControl {
     @PostMapping()
     public ResponseEntity<Routes> guardarRoutes(@RequestBody Routes routes) {
         try {
+            // Validar que los campos de horario no sean nulos
+            if (routes.getHorarioLunesASabado() == null || routes.getHorarioDomingoFestivo() == null) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+
             Routes savedRoute = routesServices.guardarRoutes(routes);
             return new ResponseEntity<>(savedRoute, HttpStatus.CREATED);
         } catch (Exception e) {
+            e.printStackTrace(); // Para debug
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

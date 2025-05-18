@@ -3,6 +3,7 @@ package com.urbanpass.urbanpass.Models;
 import java.util.List;
 import java.util.Set;
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "routes")
@@ -24,6 +25,14 @@ public class Routes {
 
     @ElementCollection
     private List<String> waypoints;
+
+    @JsonProperty("horario_lunes_a_sabado")
+    @Column(name = "horario_lunes_a_sabado")
+    private String horarioLunesASabado;
+
+    @JsonProperty("horario_domingo_festivo")
+    @Column(name = "horario_domingo_festivo")
+    private String horarioDomingoFestivo;
 
     @ManyToMany
     @JoinTable(name = "route_bus", joinColumns = @JoinColumn(name = "route_id"), inverseJoinColumns = @JoinColumn(name = "bus_id"))
@@ -76,6 +85,26 @@ public class Routes {
 
     public void setWaypoints(List<String> waypoints) {
         this.waypoints = waypoints;
+    }
+
+    @JsonProperty("horario_lunes_a_sabado")
+    public String getHorarioLunesASabado() {
+        return horarioLunesASabado;
+    }
+
+    @JsonProperty("horario_lunes_a_sabado")
+    public void setHorarioLunesASabado(String horarioLunesASabado) {
+        this.horarioLunesASabado = horarioLunesASabado;
+    }
+
+    @JsonProperty("horario_domingo_festivo")
+    public String getHorarioDomingoFestivo() {
+        return horarioDomingoFestivo;
+    }
+
+    @JsonProperty("horario_domingo_festivo")
+    public void setHorarioDomingoFestivo(String horarioDomingoFestivo) {
+        this.horarioDomingoFestivo = horarioDomingoFestivo;
     }
 
     public Set<Buses> getBuses() {
