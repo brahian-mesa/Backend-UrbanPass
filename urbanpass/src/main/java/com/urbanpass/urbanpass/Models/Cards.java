@@ -3,6 +3,7 @@ package com.urbanpass.urbanpass.Models;
 import java.sql.Date;
 import java.util.Set;
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "cards")
@@ -25,11 +26,13 @@ public class Cards {
     @Column(nullable = false)
     private Date cardExpedition;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private Users user;
 
-    @OneToMany(mappedBy = "card")
+    @JsonIgnore
+    @OneToMany(mappedBy = "card", fetch = FetchType.LAZY)
     private Set<Records> records;
 
     public Long getCardId() {
