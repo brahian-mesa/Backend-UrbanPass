@@ -36,6 +36,27 @@ public class CardsService {
         return cardsRepository.findByCardId(cardId);
     }
 
+    // Obtener tarjetas por número de tarjeta
+    public ArrayList<Cards> obtenerPorNumeroTarjeta(String cardNumber) {
+        return cardsRepository.findByCardNumber(cardNumber);
+    }
+
+    // Obtener tarjetas por usuario
+    public ArrayList<Cards> obtenerPorUsuario(Long userId) {
+        return cardsRepository.findByUser_UserId(userId);
+    }
+
+    // Actualizar saldo de una tarjeta
+    public Cards actualizarSaldo(Long id, double nuevoSaldo) {
+        Optional<Cards> optionalCard = cardsRepository.findById(id);
+        if (optionalCard.isPresent()) {
+            Cards card = optionalCard.get();
+            card.setCardBalance(nuevoSaldo);
+            return cardsRepository.save(card);
+        }
+        return null;
+    }
+
     // Eliminar una tarjeta por ID
     public boolean eliminarCard(Long id) {
         try {

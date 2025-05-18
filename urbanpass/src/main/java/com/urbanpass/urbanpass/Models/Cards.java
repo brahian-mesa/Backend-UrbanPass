@@ -12,8 +12,17 @@ public class Cards {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false, name = "cardId")
     private Long cardId;
+
+    @Column(nullable = false)
     private double cardBalance;
+
+    @Column(nullable = false)
+    private String cardNumber;
+
+    @Column(nullable = false)
     private int cardCvc;
+
+    @Column(nullable = false)
     private Date cardExpedition;
 
     @ManyToOne
@@ -37,6 +46,14 @@ public class Cards {
 
     public void setCardBalance(double cardBalance) {
         this.cardBalance = cardBalance;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     public int getCardCvc() {

@@ -11,5 +11,9 @@ import com.urbanpass.urbanpass.Models.Cards;
 public interface CardsRepositorys extends CrudRepository<Cards, Long> {
     // Aquí puedes agregar métodos personalizados si es necesario
     // Por ejemplo, para buscar usuarios por nombre o correo electrónico
-    public abstract ArrayList<Cards> findByCardId(Long cardId);
+    ArrayList<Cards> findByCardId(Long cardId);
+
+    ArrayList<Cards> findByUser_UserId(Long userId);
+
+    ArrayList<Cards> findByCardNumber(String cardNumber);
 }

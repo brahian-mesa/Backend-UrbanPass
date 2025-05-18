@@ -57,4 +57,14 @@ public class UsersControl {
             return "No se pudo eliminar el usuario con id " + id;
         }
     }
+
+    @DeleteMapping(path = "/all")
+    public String eliminarTodosLosUsuarios() {
+        try {
+            this.usersServicios.eliminarTodosLosUsuarios();
+            return "Se eliminaron todos los usuarios exitosamente";
+        } catch (Exception e) {
+            return "Error al eliminar los usuarios: " + e.getMessage();
+        }
+    }
 }
