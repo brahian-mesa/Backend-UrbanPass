@@ -2,11 +2,14 @@ package com.urbanpass.urbanpass.Services;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.urbanpass.urbanpass.Models.Cards;
+import com.urbanpass.urbanpass.Models.Records;
 import com.urbanpass.urbanpass.Repository.CardsRepositorys;
 
 @Service
@@ -14,6 +17,9 @@ public class CardsService {
 
     @Autowired
     CardsRepositorys cardsRepository;
+
+    @Autowired
+    RecordsServices recordsService;
 
     // Obtener todas las tarjetas
     public ArrayList<Cards> obtenerTodasLasCards() {
@@ -65,5 +71,35 @@ public class CardsService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    // Actualizar saldo de una tarjeta por número
+    @Transactional
+    public Cards actualizarSaldoPorNumero(String cardNumber, double nuevoSaldo) {
+        ArrayList<Cards> cards = cardsRepository.findByCardNumber(cardNumber);
+        if (!cards.isEmpty()) {
+            Cards card = cards.get(0);
+            // Asegurarse de que el nuevo saldo sea positivo
+            if (nuevoSaldo >= 0) {
+                double saldoAnterior = card.getCardBalance();
+                double montoRecarga = nuevoSaldo - saldoAnterior;
+
+                card.setCardBalance(nuevoSaldo);
+                Cards updatedCard = cardsRepository.save(card);
+
+                // Crear registro de la recarga
+                Records record = new Records();
+                record.setCard(updatedCard);
+                record.setRecordDate(new Date(System.currentTimeMillis()));
+                record.setOperationType("RECHARGE");
+                record.setAmount(montoRecarga);
+                // El fence es null porque es una recarga
+                record.setFence(null);
+                recordsService.guardarRecords(record);
+
+                return updatedCard;
+            }
+        }
+        return null;
     }
 }

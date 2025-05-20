@@ -24,9 +24,16 @@ public class RecordsServices {
         return recordsRepsitorys.findById(id).orElse(null);
     }
 
-
     public ArrayList<Records> obtenerPorRecordId(Long recordId) {
         return recordsRepsitorys.findByRecordId(recordId);
+    }
+
+    public ArrayList<Records> obtenerPorNumeroTarjeta(String cardNumber) {
+        return recordsRepsitorys.findByCard_CardNumber(cardNumber);
+    }
+
+    public ArrayList<Records> obtenerRecordsPorUsuario(Long userId) {
+        return recordsRepsitorys.findByCard_User_UserId(userId);
     }
 
     public boolean eliminarRecords(Long id) {

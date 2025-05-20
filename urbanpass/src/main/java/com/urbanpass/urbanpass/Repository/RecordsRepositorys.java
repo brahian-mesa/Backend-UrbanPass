@@ -11,4 +11,8 @@ public interface RecordsRepositorys extends CrudRepository<Records, Long> {
     // Aquí puedes agregar métodos personalizados si es necesario
     // Por ejemplo, para buscar usuarios por nombre o correo electrónico
     public abstract ArrayList<Records> findByRecordId(Long recordId);
+
+    ArrayList<Records> findByCard_CardNumber(String cardNumber);
+
+    ArrayList<Records> findByCard_User_UserId(Long userId);
 }

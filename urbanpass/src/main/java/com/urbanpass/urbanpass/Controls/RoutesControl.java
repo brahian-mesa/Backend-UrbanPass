@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import com.urbanpass.urbanpass.Models.Routes;
 import com.urbanpass.urbanpass.Services.RoutesServices;
 
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RestController
 @RequestMapping("api/routes")
 public class RoutesControl {

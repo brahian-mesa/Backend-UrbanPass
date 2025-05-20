@@ -13,8 +13,8 @@ import com.urbanpass.urbanpass.Services.CardsService;
 import com.urbanpass.urbanpass.Services.UsersServices;
 import com.urbanpass.urbanpass.DTO.CardResponseDTO;
 import com.urbanpass.urbanpass.DTO.CreateCardDTO;
+import com.urbanpass.urbanpass.DTO.SaldoDTO;
 
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RestController
 @RequestMapping("api/cards")
 public class CardsControl {
@@ -135,4 +135,24 @@ public class CardsControl {
         }
         return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
     }
+
+    @PutMapping(path = "/number/{cardNumber}/balance")
+    public ResponseEntity<CardResponseDTO> actualizarSaldoPorNumero(
+            @PathVariable("cardNumber") String cardNumber,
+            @RequestBody SaldoDTO saldoDTO) {
+        try {
+            if (saldoDTO.getNuevoSaldo() < 0) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+
+            Cards updatedCard = cardsService.actualizarSaldoPorNumero(cardNumber, saldoDTO.getNuevoSaldo());
+            if (updatedCard != null) {
+                return new ResponseEntity<>(CardResponseDTO.fromCard(updatedCard), HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

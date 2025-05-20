@@ -20,7 +20,14 @@ public class Records {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false, name = "recordId")
     private long recordId;
+
     private Date recordDate;
+
+    @Column(nullable = false)
+    private String operationType; // "RECHARGE" o "FENCE_USE"
+
+    @Column(nullable = false)
+    private double amount; // Monto de la recarga o uso
 
     @ManyToOne
     @JoinColumn(name = "cardId")
@@ -44,6 +51,22 @@ public class Records {
 
     public void setRecordDate(Date recordDate) {
         this.recordDate = recordDate;
+    }
+
+    public String getOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(String operationType) {
+        this.operationType = operationType;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     public Cards getCard() {
